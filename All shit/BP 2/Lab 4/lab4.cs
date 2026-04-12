@@ -16,7 +16,7 @@ public class BiDirectionalPriorityQueue<T>
 public readonly List<QueuePriority<T>> _items = new();
 private long _counter = 0L;
 
-public void Enqueu(T value, int priority) // FIFO
+public void Enqueue(T value, int priority) 
 {
     _items.Add (new QueuePriority<T>
     {
@@ -26,7 +26,7 @@ public void Enqueu(T value, int priority) // FIFO
   });
 }
 
-public T Dequeue(Query type)
+public T Dequeue(Query type) 
     {
         if (_items.Count == 0) throw new InvalidOperationException("Queue is empty");
 
@@ -41,7 +41,19 @@ public T Dequeue(Query type)
 
         return GetTarget(type).Value;
     }
+private QueuePriority<T> GetTarget(Query type)
+    {
+        return type switch
+        {
+            Query.Highest => _items.OrderByDescending(x => x.Priority).ThenBy(x => x.Id).First(),
+            Query.Lowest  => _items.OrderBy(x => x.Priority).ThenBy(x => x.Id).First(),
+            Query.Oldest  => _items.OrderBy(x => x.Id).First(),
+            Query.Newest  => _items.OrderByDescending(x => x.Id).First(),
+            _ => throw new ArgumentException("Invalid query type")
+        };
+    }
 }
+
 
 
 
