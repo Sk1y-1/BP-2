@@ -28,7 +28,8 @@ public static class AsyncArray
     public static async Task<int> FindParallelAsync<T>(
         IEnumerable<T> collection,
         Func<T, bool> predicate,
-        CancellationToken ct = default)      
+        CancellationToken ct = default
+        )      
     {
         int index = 0;
         foreach (var item in collection)
