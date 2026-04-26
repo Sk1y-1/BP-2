@@ -23,8 +23,7 @@ public static async FindIndexParallel<T>(
 
 IEnumerable<T> collection,
 Func<T, bool> predicate,
-CancellationToken ct = default
-)      
+CancellationToken ct = default)      
 {
     
 }
